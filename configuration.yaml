@@ -1,0 +1,155 @@
+########################
+#### CONFIGURATION #####
+########################
+## configuration.yaml ##
+########################
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret latitude
+  longitude: !secret longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 85
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: !secret time_zone
+  # Customization file
+  customize: !include customize.yaml
+
+# Show links to resources in log and frontend
+introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  # Uncomment this to add a password (recommended!)
+  api_password: !secret hassio_pass
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  base_url: liana5.duckdns.org:8123
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+# conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Track the sun
+sun:
+
+# Text to speech
+# tts:
+  # - platform: google
+
+# MQTT
+mqtt:
+  broker: localhost
+  birth_message: # MQTT 'birth message'
+    topic: 'hass/status'
+    payload: 'online'
+  will_message:  # MQTT 'last will message'
+    topic: 'hass/status'
+    payload: 'offline'
+
+# Logger
+logger:
+  default: warning
+  logs: # Logs MQTT messages:
+    homeassistant.components.mqtt: debug
+
+# Media Player
+media_player:
+  - platform: kodi # OpenElec/Kodi media player on Raspberry 2 in living room
+    host: openelec
+    port: 80
+    name: kodi
+    username: kodi
+    password: !secret kodi_password
+    tcp_port: 9090
+    enable_websocket: true
+    timeout: 10
+  - platform: samsungtv # Living room TV
+    host: 192.168.44.33
+    port: 8001    
+
+# IKEA Tradfri Zigbee bulbs
+# Discovery of Tradfri gateway is sometimes faulty if IP of GW changes. Then it asks for the security code again.
+tradfri:
+  host: 192.168.44.35
+  api_key: !secret tradfri_security_code
+  allow_tradfri_groups: false
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+sensor: !include sensors.yaml
+
+# Commandline switch for rebooting Home Assitant:
+# switch Reboot:
+  # platform: command_line
+  # switches:
+    # home_assistant_system_reboot:
+      # command_off: "/usr/sbin/reboot"
+      # friendly_name: Reboot
+
+# Boolean switches (Toggling On/Off Switch)
+input_boolean:
+  home_away: # toggling 'Home' or 'Away' mode:
+    name: Switch to Home or Away mode
+    initial: off
+    icon: mdi:weather-home-outline
+  day_night: # toggling Day or Night mode
+    name: Switch to Day or Night mode
+    initial: off
+    icon: mdi:weather-night
+  # all_lights_off: # test switch for turning all lights off mode
+    # name: Switch every light off!
+    # initial: off
+    # icon: mdi:weather-sunny
+
+######################### NOTIFY Services - Temp DISABLED #########################
+#notify:
+### pushsafer.com - 20 notifications free then you have to pay like 0.99 EUR for 1000 notifications
+  # - name: Home_Assistant
+    # platform: pushsafer
+    # private_key: !secret pushsafer_pkey
+
+### instapush.im - hard to configure
+  # - name: NOTIFIER_NAME
+    # platform: instapush
+    # api_key: !secret instapush_api_key  # User token
+    # app_secret: !secret instapush_app_secret
+    # event: !secret instapush_event
+    # tracker: !secret instapush_tracker
+### Matrix
+  # - name: home_assistant1
+    # platform: matrix
+    # homeserver: https://matrix.org
+    # username: !secret matrix_username
+    # password: !secret matrix_pass
+    # default_room: !secret matrix_default_room
+
+

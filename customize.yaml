@@ -1,0 +1,9 @@
+####################
+#### CUSTOMIZE #####
+####################
+## customize.yaml ##
+####################
+
+# Hide some scenes
+#scene.play_music:	
+#  hidden: true

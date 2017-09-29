@@ -1,0 +1,18 @@
+##################
+#### SCRIPTS #####
+##################
+## scripts.yaml ##
+##################
+
+# Some simple switches on the UI to Restart HomeAssistant and/or reload Automations
+# Saves some clicking or terminal work :-)
+restart_ha:
+  alias: Restart HomeAssistant
+  sequence:
+    - alias: Restart HA
+      service: homeassistant.restart
+reload_automations:
+  alias: Reload Automations
+  sequence:
+    - alias: Reload-Automations
+      service: automation.reload

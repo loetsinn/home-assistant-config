@@ -1,0 +1,29 @@
+##################
+#### SENSORS #####
+##################
+## sensors.yaml ##
+##################
+
+######################### Weather Sensors - https://home-assistant.io/components/#weather #########################
+- platform: yr
+  monitored_conditions:
+    - temperature
+    - symbol
+
+# - platform: openweathermap # Funktioniert nicht. Sensor zeigt keine Daten an.
+  # api_key: !secret api_key_openweathermap
+  # language: de 
+  # monitored_conditions:
+    # - weather
+
+- platform: darksky
+  api_key: !secret api_key_darksky
+  monitored_conditions:
+    - summary
+    - temperature
+
+### Subscribe to MQTT Topics with a sensor - https://home-assistant.io/components/sensor.mqtt
+### If messages in this state_topic are published with RETAIN flag, the sensor will receive an instant update with last known value.
+### Otherwise, the initial state will be undefined.
+- platform: mqtt
+  state_topic: "dev/temp"

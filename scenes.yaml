@@ -1,0 +1,62 @@
+################
+#### SCENES ####
+################
+# scenes.yaml ##
+################
+# Können Szenen auch auf der Startseite verborgen werden?
+
+# Alle Lampen ausschalten:
+- name: Aus
+  entities:
+    group.all_lights: off
+
+# Leichte Beleuchtung im Flur:
+- name: Katzenbeleuchtung
+  entities:
+    light.flur:
+      state: on
+      brightness_pct: 20
+      kelvin: 2300
+
+# gedimmte Beleuchtung im Wohnzimmer:
+- name: Kinomodus
+  entities:
+    light.wohnzimmer:
+      state: on
+      brightness_pct: 10
+      kelvin: 2300
+
+# Alle Lampene volle Helligkeit und gleiche Farbtemperatur von 2700K:
+- name: Powerbeleuchtung
+  entities:
+    light.flur:
+      state: on
+      brightness_pct: 100
+      kelvin: 2700
+    light.kinderzimmer:
+      state: on
+      brightness_pct: 100
+      kelvin: 2700
+    light.wohnzimmer:
+      state: on
+      brightness_pct: 100
+      kelvin: 2700
+    light.schlafzimmer: # Lampe hat feste Farbtemperatur von 2700 Kelvin
+      state: on
+      brightness_pct: 100
+    light.bad:
+      state: on
+      brightness_pct: 100
+      kelvin: 2700
+
+# Leichte Beleuchtung in Bad & Flur zum gemütlichen Aufstehen:
+- name: Morgengrauen
+  entities:
+    light.flur:
+      state: on
+      brightness_pct: 5
+      kelvin: 2300   
+    light.bad:
+      state: on
+      brightness_pct: 5
+      kelvin: 2300
